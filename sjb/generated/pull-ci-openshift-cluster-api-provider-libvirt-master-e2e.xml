@@ -289,7 +289,7 @@ ssh libvirtactuator &#39;sudo systemctl status libvirtd&#39;
 ssh libvirtactuator &#39;sudo systemctl start libvirtd&#39;
 
 # run the e2e
-ssh libvirtactuator &#34;./machines.test -logtostderr -v 3 -kubeconfig ~/.kube/config -ginkgo.v -actuator-image gcr.io/k8s-cluster-api/libvirt-machine-controller:0.0.1 -libvirt-uri &#39;qemu+ssh://root@\${LIBVIRT_IP}/system?no_verify=1&amp;keyfile=/root/.ssh/actuator.pem/privatekey&#39; -libvirt-pk /libvirt.pem -ssh-user fedora -ssh-key /guest.pem&#34;
+ssh libvirtactuator &#34;./machines.test -logtostderr -v 3 -kubeconfig ~/.kube/config -ginkgo.v -machine-controller-image gcr.io/k8s-cluster-api/libvirt-machine-controller:0.0.1 -machine-manager-image gcr.io/k8s-cluster-api/libvirt-machine-controller:0.0.1 -nodelink-controller-image \$(docker run registry.svc.ci.openshift.org/openshift/origin-release:v4.0 image machine-api-operator) -libvirt-uri &#39;qemu+ssh://root@\${LIBVIRT_IP}/system?no_verify=1&amp;keyfile=/root/.ssh/actuator.pem/privatekey&#39; -libvirt-pk /libvirt.pem -ssh-user fedora -ssh-key /guest.pem&#34;
 SCRIPT
 chmod +x &#34;${script}&#34;
 scp -F ${WORKSPACE}/.config/origin-ci-tool/inventory/.ssh_config &#34;${script}&#34; openshiftdevel:&#34;${script}&#34;

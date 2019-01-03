@@ -81,7 +81,7 @@ extensions:
         ssh libvirtactuator 'sudo systemctl start libvirtd'
 
         # run the e2e
-        ssh libvirtactuator "./machines.test -logtostderr -v 3 -kubeconfig ~/.kube/config -ginkgo.v -actuator-image gcr.io/k8s-cluster-api/libvirt-machine-controller:0.0.1 -libvirt-uri 'qemu+ssh://root@${LIBVIRT_IP}/system?no_verify=1&keyfile=/root/.ssh/actuator.pem/privatekey' -libvirt-pk /libvirt.pem -ssh-user fedora -ssh-key /guest.pem"
+        ssh libvirtactuator "./machines.test -logtostderr -v 3 -kubeconfig ~/.kube/config -ginkgo.v -machine-controller-image gcr.io/k8s-cluster-api/libvirt-machine-controller:0.0.1 -machine-manager-image gcr.io/k8s-cluster-api/libvirt-machine-controller:0.0.1 -nodelink-controller-image $(docker run registry.svc.ci.openshift.org/openshift/origin-release:v4.0 image machine-api-operator) -libvirt-uri 'qemu+ssh://root@${LIBVIRT_IP}/system?no_verify=1&keyfile=/root/.ssh/actuator.pem/privatekey' -libvirt-pk /libvirt.pem -ssh-user fedora -ssh-key /guest.pem"
   system_journals:
     - systemd-journald.service
 overrides:
